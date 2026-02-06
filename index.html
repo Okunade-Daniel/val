@@ -4,33 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Esther</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --glass: rgba(255, 255, 255, 0.15);
-            --accent: #fb7185; /* Soft Rose */
+            --glass: rgba(255, 255, 255, 0.12);
+            --accent: #e11d48; /* Deep Rose */
+            --text: #ffffff;
         }
+
+        * { box-sizing: border-box; }
 
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
-            font-family: 'Georgia', serif;
+            font-family: 'Playfair Display', serif;
             overflow: hidden;
             background: #000;
         }
 
-        /* Replace the URL below with your actual image link */
         .background-image {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                        url('https://images.unsplash.com/photo-1516589174184-c68536575802?q=80&w=1000');
+            /* Using your specific image */
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), 
+                        url('http://googleusercontent.com/image_generation_content/0');
             background-size: cover;
             background-position: center;
             z-index: -1;
+            transform: scale(1.1); /* Slight zoom for better fit */
         }
 
         .container {
@@ -43,50 +48,80 @@
 
         .card {
             background: var(--glass);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 40px;
+            border-radius: 24px;
+            padding: 50px 40px;
             text-align: center;
-            max-width: 400px;
-            color: white;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            display: none; /* Hidden by default */
-            animation: fadeIn 0.8s ease-out;
+            /* Wider card setting */
+            width: 100%;
+            max-width: 600px; 
+            color: var(--text);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            display: none; 
+            animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .card.active { display: block; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        h1 { font-size: 2rem; margin-bottom: 20px; font-style: italic; }
-        p { line-height: 1.8; font-size: 1.1rem; margin-bottom: 30px; }
+        h1 { 
+            font-size: 2.8rem; 
+            margin-bottom: 20px; 
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        p { 
+            line-height: 1.8; 
+            font-size: 1.3rem; 
+            margin-bottom: 35px; 
+            font-style: italic;
+            opacity: 0.95;
+        }
 
         .btn {
-            background: var(--accent);
-            color: white;
+            font-family: 'Poppins', sans-serif;
+            background: white;
+            color: black;
             border: none;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-size: 1rem;
+            padding: 14px 40px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        .btn:hover { background: #f43f5e; transform: scale(1.05); }
+        .btn:hover { 
+            background: var(--accent); 
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(225, 29, 72, 0.4);
+        }
 
         .final-name {
-            font-weight: bold;
-            color: var(--accent);
-            font-size: 1.4rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.8rem;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        /* Responsive adjustments for mobile */
+        @media (max-width: 480px) {
+            h1 { font-size: 2rem; }
+            p { font-size: 1.1rem; }
+            .card { padding: 30px 20px; }
         }
     </style>
 </head>
@@ -105,7 +140,7 @@
             He carried noise, ambition, and restless dreams,<br>
             Till Ibadan slowed his hurried heartbeat down<br>
             The day he met her, love arrived quietly, it seems."</p>
-            <button class="btn" onclick="nextCard(3)">Click Me</button>
+            <button class="btn" onclick="nextCard(3)">Keep Reading</button>
         </div>
 
         <div class="card" id="card3">
@@ -113,32 +148,37 @@
             In her eyes, a peace he never knew he sought,<br>
             And somewhere between simple talks and shared silences,<br>
             Forever stopped feeling like an impossible thought."</p>
-            <button class="btn" onclick="nextCard(4)">Click Me</button>
+            <button class="btn" onclick="nextCard(4)">And then...</button>
         </div>
 
         <div class="card" id="card4">
             <p>"Now he wishes not for journeys far away,<br>
             But for mornings where her smile begins his day,<br>
-            To walk through life beside her, hand in hand —<br>
+            To walk through life beside her, hand in hand <br>
             Loving her always, in Ibadan, in Lagos, in every way."</p>
             <button class="btn" onclick="nextCard(5)">Guess what?</button>
         </div>
 
         <div class="card" id="card5">
             <span class="final-name">Oladipo Esther Oluwadamilola,</span>
-            <p>I need you to know that you are my Val not just now, tomorrow and Forever.</p>
-            <p style="font-size: 2rem;">❤️</p>
+            <p style="font-style: normal;"> You’re my Val, not just for this Valentine’s, but for every tomorrow and every forever that comes after.</p>
+            <div style="font-size: 2.5rem; margin-top: 10px;">🌹</div>
         </div>
     </div>
 
     <script>
         function nextCard(cardNum) {
-            // Hide all cards
-            const cards = document.querySelectorAll('.card');
-            cards.forEach(card => card.classList.remove('active'));
+            const currentActive = document.querySelector('.card.active');
             
-            // Show the specific card
-            document.getElementById('card' + cardNum).classList.add('active');
+            // Fade out current card
+            currentActive.style.opacity = '0';
+            currentActive.style.transform = 'translateY(-20px)';
+            
+            setTimeout(() => {
+                currentActive.classList.remove('active');
+                const next = document.getElementById('card' + cardNum);
+                next.classList.add('active');
+            }, 400);
         }
     </script>
 </body>
