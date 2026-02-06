@@ -2,93 +2,88 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Story for Esther</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>For Esther</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --glass: rgba(0, 0, 0, 0.45); 
+            --glass: rgba(0, 0, 0, 0.55); 
             --accent: #e11d48;
             --text: #ffffff;
         }
 
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
         body, html {
-            margin: 0; padding: 0; height: 100%;
+            margin: 0; padding: 0; 
+            height: 100%; width: 100%;
             font-family: 'Playfair Display', serif;
-            overflow: hidden; background: #000;
+            background: #000;
+            overflow: hidden;
+            position: fixed;
         }
 
+        /* FIXED BACKGROUND LOGIC */
         .background-image {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            /* Using the RAW GitHub link for your image */
-            background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.7)), 
-                        url('https://raw.githubusercontent.com/Okunade-Daniel/val/main/babe.jpeg'); 
+            position: absolute; 
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* Using the RAW URL which allows the image to actually load */
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.75)), 
+                              url('https://raw.githubusercontent.com/Okunade-Daniel/val/main/babe.jpeg'); 
             background-size: cover;
-            background-position: center;
+            background-position: center center;
+            background-repeat: no-repeat;
             z-index: -1;
-            transition: transform 3s ease;
         }
 
         .container {
             display: flex; justify-content: center; align-items: center;
-            height: 100vh; padding: 20px;
+            height: 100%; width: 100%; padding: 20px;
+            padding-bottom: calc(20px + env(safe-area-inset-bottom));
         }
 
         .card {
             background: var(--glass);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 30px;
-            padding: 50px 40px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 28px;
+            padding: 40px 25px;
             text-align: center;
-            width: 100%; max-width: 620px; 
+            width: 100%; max-width: 380px; 
             color: var(--text);
             display: none; 
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            animation: iphoneSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        .card.active { 
-            display: block; 
-            animation: cardEntrance 1.4s cubic-bezier(0.23, 1, 0.32, 1);
+        .card.active { display: block; }
+
+        @keyframes iphoneSlideUp {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        @keyframes cardEntrance {
-            from { opacity: 0; transform: scale(0.92) translateY(40px); filter: blur(15px); }
-            to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
-        }
-
-        h1 { font-size: 3.2rem; margin-bottom: 10px; font-weight: 700; }
-        .subtitle { font-family: 'Poppins'; font-size: 0.75rem; letter-spacing: 5px; text-transform: uppercase; opacity: 0.7; margin-bottom: 35px; display: block; }
-        
-        p { line-height: 1.9; font-size: 1.4rem; margin-bottom: 40px; font-style: italic; }
+        h1 { font-size: 2.3rem; margin-bottom: 10px; font-weight: 700; }
+        .subtitle { font-family: 'Poppins'; font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; opacity: 0.7; margin-bottom: 25px; display: block; }
+        p { line-height: 1.8; font-size: 1.2rem; margin-bottom: 30px; font-style: italic; }
 
         .btn {
             font-family: 'Poppins', sans-serif;
             background: white; color: black; border: none;
-            padding: 18px 50px; border-radius: 50px;
+            padding: 16px 40px; border-radius: 50px;
             font-size: 0.85rem; font-weight: 600; cursor: pointer;
-            transition: all 0.4s ease; text-transform: uppercase; letter-spacing: 2px;
+            -webkit-appearance: none;
         }
 
-        .btn:hover { background: var(--accent); color: white; transform: translateY(-3px); box-shadow: 0 15px 30px rgba(225, 29, 72, 0.4); }
-
-        .final-name {
-            font-size: 2.4rem;
-            display: block;
-            margin-bottom: 20px;
-            color: var(--accent);
-            font-weight: 700;
-        }
-
-        #music-player { display: none; }
+        .final-name { font-size: 1.8rem; display: block; margin-bottom: 15px; color: var(--accent); font-weight: 700; }
     </style>
 </head>
 <body>
 
-    <div class="background-image" id="bg"></div>
+    <div class="background-image"></div>
 
-    <audio id="music-player" loop preload="auto">
+    <audio id="music-player" loop playsinline>
         <source src="https://www.ceenaija.com/wp-content/uploads/music/2023/04/Banky_W_-_Made_For_You_CeeNaija.com_.mp3" type="audio/mpeg">
     </audio>
 
@@ -102,60 +97,45 @@
 
         <div class="card" id="card2">
             <span class="subtitle">Chapter I: The Arrival</span>
-            <p>"From Lagos streets where the city never sleeps,<br>
-            He carried noise, ambition, and restless dreams,<br>
-            Till Ibadan slowed his hurried heartbeat down<br>
-            The day he met her, love arrived quietly, it seems."</p>
+            <p>"From Lagos streets where the city never sleeps,<br>He carried noise, ambition, and restless dreams,<br>Till Ibadan slowed his hurried heartbeat down<br>The day he met her, love arrived quietly, it seems."</p>
             <button class="btn" onclick="nextCard(3)">Keep Reading</button>
         </div>
 
         <div class="card" id="card3">
             <span class="subtitle">Chapter II: The Peace</span>
-            <p>"In her laughter he found a gentler home,<br>
-            In her eyes, a peace he never knew he sought,<br>
-            And somewhere between simple talks and shared silences,<br>
-            Forever stopped feeling like an impossible thought."</p>
+            <p>"In her laughter he found a gentler home,<br>In her eyes, a peace he never knew he sought,<br>And somewhere between simple talks and shared silences,<br>Forever stopped feeling like an impossible thought."</p>
             <button class="btn" onclick="nextCard(4)">Go On...</button>
         </div>
 
         <div class="card" id="card4">
             <span class="subtitle">Chapter III: The Vow</span>
-            <p>"Now he wishes not for journeys far away,<br>
-            But for mornings where her smile begins his day,<br>
-            To walk through life beside her, hand in hand —<br>
-            Loving her always, in Ibadan, in Lagos, in every way."</p>
+            <p>"Now he wishes not for journeys far away,<br>But for mornings where her smile begins his day,<br>To walk through life beside her, hand in hand —<br>Loving her always, in Ibadan, in Lagos, in every way."</p>
             <button class="btn" onclick="nextCard(5)">One last thing...</button>
         </div>
 
         <div class="card" id="card5">
             <span class="subtitle">The Forever Promise</span>
             <span class="final-name">Oladipo Esther Oluwadamilola</span>
-            <p style="font-style: normal; font-size: 1.6rem;">I need you to know that you are my Valentine. Not just for now, but for every tomorrow, and for always.</p>
-            <div style="font-size: 3rem; filter: drop-shadow(0 0 15px var(--accent));">❤️</div>
+            <p style="font-style: normal; font-size: 1.3rem;">I need you to know that you are my Valentine. Not just for now, but for every tomorrow, and for always.</p>
+            <div style="font-size: 2.5rem;">❤️</div>
         </div>
     </div>
 
     <script>
         const music = document.getElementById('music-player');
-        const bg = document.getElementById('bg');
-
         function startStory() {
-            music.play().catch(e => console.log("Music failed - likely browser policy."));
-            bg.style.transform = "scale(1)"; 
+            music.play().catch(e => console.log("Audio play failed"));
             nextCard(2);
         }
-
         function nextCard(cardNum) {
             const currentActive = document.querySelector('.card.active');
             currentActive.style.opacity = '0';
-            currentActive.style.transform = 'translateY(-30px) scale(0.95)';
-            
             setTimeout(() => {
                 currentActive.classList.remove('active');
-                const next = document.getElementById('card' + cardNum);
-                next.classList.add('active');
-            }, 700);
+                document.getElementById('card' + cardNum).classList.add('active');
+            }, 400);
         }
     </script>
 </body>
 </html>
+
